@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movebank Animal Tracker</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Login Screen -->
+    <div id="loginScreen" class="screen">
+      <div class="header">
+        <h1>🦅 Movebank Tracker</h1>
+        <p class="subtitle">Animal Movement & Migration Data</p>
+      </div>
+      <div class="login-form">
+        <div class="input-group" style="display: none;">
+          <label for="username">Username</label>
+          <input type="text" id="username" value="petresources" />
+        </div>
+        <div class="input-group" style="display: none;">
+          <label for="password">Password</label>
+          <input type="password" id="password" value="pet_123456789" />
+        </div>
+        <button id="loginBtn" class="btn btn-primary">Start</button>
+        <p class="help-text">Access animal tracking data from Movebank</p>
+      </div>
+      <div id="loginError" class="error-message"></div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div id="dashboard" class="screen" style="display:none;">
+      <div class="header">
+        <h1>🦅 Movebank Tracker</h1>
+        <button id="logoutBtn" class="btn btn-small">Logout</button>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="studies">Studies</button>
+        <button class="tab-btn" data-tab="favorites">Favorites</button>
+        <button class="tab-btn" data-tab="map">Map View</button>
+        <button class="tab-btn" data-tab="settings">Settings</button>
+      </div>
+
+      <!-- Studies Tab -->
+      <div id="studiesTab" class="tab-content active">
+        <div class="search-bar">
+          <input type="text" id="studySearch" placeholder="Search studies..." />
+          <button id="refreshStudies" class="btn btn-icon">🔄</button>
+        </div>
+        
+        <div id="studiesLoading" class="loading">
+          <div class="spinner"></div>
+          <p>Loading studies...</p>
+        </div>
+        
+        <div id="studiesList" class="list-container"></div>
+      </div>
+
+      <!-- Favorites Tab -->
+      <div id="favoritesTab" class="tab-content">
+        <div id="favoritesList" class="list-container">
+          <p class="empty-state">No favorites yet. Star studies to add them here!</p>
+        </div>
+      </div>
+
+      <!-- Map View Tab -->
+      <div id="mapTab" class="tab-content">
+        <div class="map-controls">
+          <select id="mapStudySelect" class="select-input">
+            <option value="">Select a study...</option>
+          </select>
+          <select id="mapAnimalSelect" class="select-input" disabled>
+            <option value="">Select an animal...</option>
+          </select>
+          <button id="loadMapData" class="btn btn-primary" disabled>Load Track</button>
+        </div>
+        <div id="mapContainer" class="map-container">
+          <div class="map-placeholder">
+            <p>🗺️ Select a study and animal to view tracking data</p>
+          </div>
+        </div>
+        <div id="trackStats" class="stats-panel"></div>
+      </div>
+
+      <!-- Settings Tab -->
+      <div id="settingsTab" class="tab-content">
+        <div class="settings-section">
+          <h3>Display Settings</h3>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="autoRefresh" />
+              Auto-refresh studies (every 5 minutes)
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="showNotifications" />
+              Show notifications for new tracking data
+            </label>
+          </div>
+        </div>
+        
+        <div class="settings-section">
+          <h3>Data Settings</h3>
+          <div class="setting-item">
+            <label for="maxPoints">Maximum points to display:</label>
+            <select id="maxPoints" class="select-input">
+              <option value="100">100</option>
+              <option value="500" selected>500</option>
+              <option value="1000">1000</option>
+              <option value="5000">5000</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <h3>About</h3>
+          <p class="help-text">Movebank Animal Tracker v1.0.0</p>
+          <p class="help-text">Access animal tracking data from the Movebank database.</p>
+          <a href="https://github.com/movebank/movebank-api-doc" target="_blank" class="btn btn-link">API Documentation</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Animal Details Modal -->
+    <div id="animalModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div id="animalDetails"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
